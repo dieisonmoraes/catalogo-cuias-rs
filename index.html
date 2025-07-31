@@ -432,13 +432,20 @@
       window.open(`https://wa.me/5551992001418?text=${mensagem}`, "_blank");
     }
 
-    document.getElementById("search").addEventListener("input", function () {
-      const termo = this.value.toLowerCase();
-      const filtrado = produtos.filter(p => p.Nome.toLowerCase().includes(termo));
-      renderProducts(filtrado);
+    // Initialize event listeners and load products only after the DOM has finished loading.
+    document.addEventListener('DOMContentLoaded', () => {
+      // Bind search input to filter products on the fly
+      const searchInput = document.getElementById('search');
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          const termo = this.value.toLowerCase();
+          const filtrado = produtos.filter(p => p.Nome.toLowerCase().includes(termo));
+          renderProducts(filtrado);
+        });
+      }
+      // Load products from the spreadsheet once the page elements exist
+      loadProducts();
     });
-
-    loadProducts();
   
     function toggleCarrinho() {
       const cart = document.getElementById("cart");
