@@ -297,7 +297,9 @@
 <div id="pedido-ok">🎉 Pedido mínimo alcançado! Já pode finalizar.</div>
 
   <script>
-    const SHEET_URL = "https://api.sheetbest.com/sheets/16a6ff50-f42e-4f6c-b954-29c12c4a6515";
+    // Updated data source: Using OpenSheet to fetch products from Google Sheets
+    // This endpoint reads the 'Produtos' sheet from the shared Google spreadsheet
+    const SHEET_URL = "https://opensheet.elk.sh/1VKSLAKNo9w0fN9VagJkxJQuUYveTNLGUhrcYJdVE99M/Produtos";
     let produtos = [];
     let carrinho = [];
 
