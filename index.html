@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,661 +5,390 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Catálogo de Atacado - Cuias RS</title>
   <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f2f2f2;
+    :root {
+      --primary-color: #004d40;
+      --secondary-color: #00796b;
+      --accent-color: #ffc107;
+      --bg-color: #f2f2f2;
+      --whatsapp-color: #25d366;
     }
-    .title-container {
-      background-color: #004d40;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    .title-container h1 {
-      margin: 0;
-      font-size: 24px;
-    }
-    .title-container p {
-      margin: 5px 0 10px;
-      font-size: 16px;
-    }
-    .search-container {
-      text-align: center;
-      padding: 10px;
-    }
-    .search-container input {
-      width: 80%;
-      padding: 10px;
-      font-size: 16px;
-    }
-    .min-order-warning {
-      background: #ffdddd;
-      color: #b30000;
-      padding: 15px;
-      text-align: center;
-      font-weight: bold;
-    }
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-    }
-    .product-card {
-      background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin: 10px;
-      padding: 15px;
-      width: 280px;
-      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .product-card img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 5px;
-    }
-    .product-card h3 {
-      margin: 5px 0;
-      font-size: 18px;
-    }
-    .product-card p {
-      margin: 5px 0;
-      font-size: 18px;
-    }
-    .product-card select {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 5px;
-    }
-    .quantity-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 10px;
-    }
-    .quantity-controls button {
-      padding: 5px 10px;
-      font-size: 16px;
-    }
-    .quantity-controls span {
-      margin: 0 10px;
-      font-size: 16px;
-    }
-    .product-card button.add {
-      margin-top: 10px;
-      padding: 10px;
-      font-size: 16px;
-      background-color: #00796b;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-    }
-    .product-card button.add:hover {
-      background-color: #004d40;
-    }
-    #cart {
-      position: fixed;
-      right: 10px;
-      bottom: 10px;
-      background: white;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-      width: 260px;
-      z-index: 1000;
-      max-height: 60vh;
-      overflow-y: auto;
-    }
-    #cart h3 {
-      margin-top: 0;
-    }
-    #cart ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    #cart ul li {
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-    #cart-total {
-      font-weight: bold;
-    }
-    .cart-item-controls button {
-      margin: 0 3px;
-      font-size: 12px;
-    }
-    #whatsapp-button {
-      position: fixed;
-      bottom: 90px;
-      left: 20px;
-      z-index: 1001;
-    }
-    #whatsapp-button img {
-      width: 60px;
-      height: 60px;
-    }
-    #cart button.enviar {
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
-  margin-top: 10px;
-      margin-top: 10px;
-      padding: 12px;
-      font-size: 16px;
-      background-color: #25d366;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      width: 100%;
-      font-weight: bold;
-    }
-    #cart button.enviar:hover {
-      background-color: #128c7e;
-    }
-  
-  #cart-count.animate {
-    animation: pulse 0.4s;
-  }
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-  }
-  #pedido-ok {
-    position: fixed;
-    bottom: 160px;
-    right: 20px;
-    background-color: #00796b;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 10px;
-    font-size: 14px;
-    display: none;
-    z-index: 1002;
-    box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
-  }
+    body { font-family: sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); padding-bottom: 80px; }
+    
+    /* Header e Layout */
+    .title-container { background-color: var(--primary-color); color: white; padding: 20px; text-align: center; }
+    .title-container h1 { margin: 0; font-size: 24px; }
+    .title-container p { margin: 5px 0 0; font-size: 16px; opacity: 0.9; }
+    
+    .search-container { text-align: center; padding: 15px; position: sticky; top: 0; background: var(--bg-color); z-index: 90; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .search-container input { width: 90%; max-width: 500px; padding: 12px; font-size: 16px; border: 1px solid #ddd; border-radius: 25px; outline: none; }
+    
+    .min-order-warning { background: #ffebee; color: #c62828; padding: 10px; text-align: center; font-weight: bold; font-size: 14px; }
+    
+    /* Grade de Produtos */
+    .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 15px; max-width: 1200px; margin: 0 auto; }
+    @media (min-width: 600px) { .products { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); } }
 
-  .confetti {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background-color: #ffc107;
-    top: -10px;
-    animation: fall 1s linear forwards;
-    z-index: 1003;
-    opacity: 0.8;
-  }
+    .product-card { background: white; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between; }
+    .product-card img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 10px; border-radius: 4px; }
+    .product-card h3 { margin: 5px 0; font-size: 16px; line-height: 1.2; color: #333; }
+    .product-card .price { font-size: 18px; color: var(--primary-color); font-weight: bold; margin: 5px 0; }
+    
+    /* Controles do Produto */
+    .product-card select { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ddd; border-radius: 4px; }
+    .quantity-controls { display: flex; justify-content: center; align-items: center; margin: 10px 0; gap: 10px; }
+    .quantity-controls button { width: 30px; height: 30px; background: #eee; border: none; border-radius: 50%; font-size: 18px; cursor: pointer; }
+    .add-btn { width: 100%; padding: 10px; background-color: var(--secondary-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+    .add-btn:hover { background-color: var(--primary-color); }
+    .add-btn:active { transform: scale(0.98); }
 
-  @keyframes fall {
-    to {
-      transform: translateY(100vh) rotate(360deg);
-      opacity: 0;
+    /* Carrinho Flutuante */
+    .cart-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; }
+    .cart-container { 
+      position: fixed; bottom: 0; right: 0; width: 100%; max-width: 400px; 
+      background: white; border-top-left-radius: 15px; border-top-right-radius: 15px; 
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2); z-index: 1000; 
+      max-height: 85vh; display: flex; flex-direction: column;
+      transform: translateY(100%); transition: transform 0.3s ease-out;
     }
-  }
-</style>
-<div id="pedido-ok">🎉 Pedido mínimo alcançado! Já pode finalizar.</div>
+    .cart-container.open { transform: translateY(0); }
+    
+    .cart-header { padding: 15px; background: var(--primary-color); color: white; border-top-left-radius: 15px; border-top-right-radius: 15px; display: flex; justify-content: space-between; align-items: center; }
+    .cart-body { padding: 15px; overflow-y: auto; flex-grow: 1; }
+    .cart-footer { padding: 15px; border-top: 1px solid #eee; background: #fff; }
+    
+    #cart-items { list-style: none; padding: 0; margin: 0; }
+    #cart-items li { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+    .item-info { flex-grow: 1; padding-right: 10px; }
+    .item-controls button { padding: 2px 8px; margin-left: 5px; }
+
+    /* Opções de Entrega */
+    .delivery-options { margin-bottom: 15px; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #ddd; }
+    .delivery-options label { display: block; margin: 5px 0; cursor: pointer; font-size: 14px; }
+
+    .btn-whatsapp { width: 100%; padding: 15px; background-color: var(--whatsapp-color); color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .btn-whatsapp:disabled { background-color: #ccc; cursor: not-allowed; }
+
+    /* Botão Flutuante do Carrinho */
+    #cart-trigger { 
+      position: fixed; bottom: 20px; right: 20px; 
+      background-color: var(--primary-color); color: white; 
+      width: 60px; height: 60px; border-radius: 50%; 
+      display: flex; justify-content: center; align-items: center; 
+      font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+      cursor: pointer; z-index: 900; border: none;
+    }
+    #cart-count { position: absolute; top: 0; right: 0; background: red; color: white; font-size: 12px; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+
+    /* Loading e Notificações */
+    #loading { text-align: center; padding: 40px; color: #666; font-size: 18px; }
+    .confetti { position: fixed; width: 10px; height: 10px; z-index: 2000; animation: fall linear forwards; }
+    @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
+  </style>
 </head>
 <body>
+
   <div class="title-container">
-    <h1>Catálogo de Atacado - Cuias RS</h1>
-    <p>Faça seu pedido direto pelo WhatsApp</p>
+    <h1>Atacado Cuias RS</h1>
+    <p>Pedido mínimo: R$ 500,00</p>
   </div>
+
   <div class="search-container">
-    <input type="text" id="search" placeholder="Buscar produto...">
+    <input type="text" id="search" placeholder="🔍 Buscar produto (ex: bago, coquinho)...">
   </div>
-  <div class="min-order-warning">
-    Pedido mínimo: R$ 500
-  </div>
+
+  <div id="loading">Carregando catálogo...</div>
   <div class="products" id="products"></div>
 
-  <div id="cart" style="display: none;">
-    <h3>Seu Pedido</h3>
-    <ul id="cart-items"></ul>
-    <p id="cart-total">Total: R$ 0</p>
-    <button class="enviar" onclick="enviarPedido()">Enviar Pedido via WhatsApp</button>
+  <button id="cart-trigger" onclick="toggleCart()">
+    🛒 <span id="cart-count">0</span>
+  </button>
+
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+  <div class="cart-container" id="cart-container">
+    <div class="cart-header">
+      <h3>Seu Pedido</h3>
+      <span style="cursor: pointer; font-size: 24px;" onclick="toggleCart()">×</span>
+    </div>
+    
+    <div class="cart-body">
+      <ul id-cart-items>
+        <p style="text-align: center; color: #999; margin-top: 20px;">Seu carrinho está vazio.</p>
+      </ul>
+      <ul id="cart-items"></ul>
+    </div>
+
+    <div class="cart-footer">
+      <div class="delivery-options">
+        <strong>Como deseja receber?</strong>
+        <label>
+          <input type="radio" name="entrega" value="envio" checked> Preciso que envie (Calcular frete)
+        </label>
+        <label>
+          <input type="radio" name="entrega" value="retira"> Retiro na fábrica
+        </label>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; font-size: 18px;">
+        <span>Total:</span>
+        <span id="cart-total">R$ 0,00</span>
+      </div>
+      
+      <div id="min-order-msg" class="min-order-warning" style="margin-bottom: 10px;">
+        Faltam R$ 500,00 para o pedido mínimo.
+      </div>
+
+      <button id="btn-enviar" class="btn-whatsapp" onclick="enviarPedido()" disabled>
+        Enviar Pedido via WhatsApp
+      </button>
+    </div>
   </div>
 
-  <a id="whatsapp-button" href="https://wa.me/5551992001418" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-  </a>
-<a id="cart-toggle-button" onclick="toggleCarrinho()">🛒<span id="cart-count" style="position: absolute; top: -5px; right: -5px; background-color: red; color: white; font-size: 14px; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center;">0</span></a>
-<style>
-  #cart-toggle-button {
-    background-color: #f5f5f5;
-    color: #000;
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-    z-index: 1001;
-    cursor: pointer;
-  }
-
-  #cart-count.animate {
-    animation: pulse 0.4s;
-  }
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-  }
-  #pedido-ok {
-    position: fixed;
-    bottom: 160px;
-    right: 20px;
-    background-color: #00796b;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 10px;
-    font-size: 14px;
-    display: none;
-    z-index: 1002;
-    box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
-  }
-
-  .confetti {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background-color: #ffc107;
-    top: -10px;
-    animation: fall 1s linear forwards;
-    z-index: 1003;
-    opacity: 0.8;
-  }
-
-  @keyframes fall {
-    to {
-      transform: translateY(100vh) rotate(360deg);
-      opacity: 0;
-    }
-  }
-</style>
-<div id="pedido-ok">🎉 Pedido mínimo alcançado! Já pode finalizar.</div>
-
-  <script>
-    // Updated data source: Using OpenSheet to fetch products from Google Sheets
-    // This endpoint reads the 'Produtos' sheet from the shared Google spreadsheet
+<script>
+    // --- Configurações ---
     const SHEET_URL = "https://opensheet.elk.sh/1VKSLAKNo9w0fN9VagJkxJQuUYveTNLGUhrcYJdVE99M/Produtos";
+    const WHATSAPP_NUM = "5551992001418";
+    const PEDIDO_MINIMO = 500;
+
+    // --- Estado ---
     let produtos = [];
     let carrinho = [];
+    let confeteEstourado = false;
 
+    // --- Inicialização ---
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProducts();
+      
+      // Busca em tempo real
+      document.getElementById('search').addEventListener('input', function(e) {
+        const termo = e.target.value.toLowerCase();
+        const filtrado = produtos.filter(p => p.Nome.toLowerCase().includes(termo));
+        renderProducts(filtrado);
+      });
+    });
+
+    // --- Carregar Dados ---
     async function loadProducts() {
       try {
         const response = await fetch(SHEET_URL);
         const data = await response.json();
-        produtos = data.map(p => ({ ...p, quantidade: 1 }));
+        // Adiciona campo de controle de quantidade local para a interface
+        produtos = data.map(p => ({ ...p, qtdTemp: 1 }));
+        document.getElementById('loading').style.display = 'none';
         renderProducts(produtos);
       } catch (error) {
-        console.error("Erro ao carregar produtos:", error);
+        document.getElementById('loading').innerText = "Erro ao carregar produtos. Tente recarregar a página.";
+        console.error(error);
       }
     }
 
-    function renderProducts(data) {
+    // --- Renderização ---
+    function renderProducts(lista) {
       const container = document.getElementById("products");
       container.innerHTML = "";
-      data.forEach((item, index) => {
+      
+      lista.forEach((item, index) => {
+        // Encontra o índice original no array principal para referência correta
+        const originalIndex = produtos.indexOf(item);
+        
         const card = document.createElement("div");
         card.className = "product-card";
-        const variacoes = item.Variações ? item.Variações.split(",").map(v => v.trim()) : [];
-        card.setAttribute('data-index', produtos.findIndex(p => p.Nome === item.Nome && p.Preço === item.Preço));
+        
+        // Tratar Variações
+        const temVariacao = item.Variações && item.Variações.trim() !== "";
+        const selectHTML = temVariacao ? 
+          `<select id="var-${originalIndex}">
+             ${item.Variações.split(",").map(v => `<option value="${v.trim()}">${v.trim()}</option>`).join("")}
+           </select>` : '';
+
+        // Tratar Imagem (Placeholder se não tiver)
+        const imgUrl = item.Imagem ? item.Imagem : 'https://via.placeholder.com/150?text=Sem+Foto';
+
         card.innerHTML = `
-          ${item.Imagem ? `<img src="${item.Imagem}" alt="${item.Nome}">` : ''}
-          <h3>${item.Nome}</h3>
-          <p><strong>R$ ${item.Preço}</strong></p>
-          ${variacoes.length > 0 ? `
-            <select id="var-${index}">
-              ${variacoes.map(v => `<option value="${v}">${v}</option>`).join("")}
-            </select>` : ''}
-          <div class="quantity-controls">
-            <button onclick="alterarQtd(${index}, -1)">−</button>
-            <span id="qtd-${index}">1</span>
-            <button onclick="alterarQtd(${index}, 1)">+</button>
+          <img src="${imgUrl}" alt="${item.Nome}" loading="lazy">
+          <div>
+            <h3>${item.Nome}</h3>
+            <div class="price">R$ ${parseFloat(item.Preço).toFixed(2)}</div>
+            ${selectHTML}
+            
+            <div class="quantity-controls">
+              <button onclick="mudarQtdTemp(${originalIndex}, -1)">−</button>
+              <span id="qtd-temp-${originalIndex}">${item.qtdTemp}</span>
+              <button onclick="mudarQtdTemp(${originalIndex}, 1)">+</button>
+            </div>
+            
+            <button class="add-btn" onclick="adicionarAoCarrinho(${originalIndex})">ADICIONAR</button>
           </div>
-          <button class="add">Adicionar</button>
         `;
         container.appendChild(card);
       });
     }
 
-    function alterarQtd(index, delta) {
-      produtos[index].quantidade = Math.max(1, produtos[index].quantidade + delta);
-      document.getElementById(`qtd-${index}`).innerText = produtos[index].quantidade;
+    // --- Lógica de Interface do Produto ---
+    function mudarQtdTemp(index, delta) {
+      const novoValor = Math.max(1, produtos[index].qtdTemp + delta);
+      produtos[index].qtdTemp = novoValor;
+      document.getElementById(`qtd-temp-${index}`).innerText = novoValor;
     }
 
+    // --- Carrinho ---
     function adicionarAoCarrinho(index) {
       const item = produtos[index];
-      const variacao = document.getElementById(`var-${index}`)?.value || '';
+      const selectVar = document.getElementById(`var-${index}`);
+      const variacao = selectVar ? selectVar.value : null;
+      
+      // Verifica se já existe esse item com essa variação
       const existente = carrinho.find(p => p.nome === item.Nome && p.variacao === variacao);
+      
       if (existente) {
-        existente.quantidade += item.quantidade;
+        existente.quantidade += item.qtdTemp;
       } else {
-        carrinho.push({ nome: item.Nome, preco: parseFloat(item.Preço), variacao, quantidade: item.quantidade });
+        carrinho.push({
+          nome: item.Nome,
+          preco: parseFloat(item.Preço),
+          variacao: variacao,
+          quantidade: item.qtdTemp
+        });
       }
-      atualizarCarrinho();
-      produtos[index].quantidade = 1;
-      document.getElementById(`qtd-${index}`).innerText = 1;
+
+      // Feedback visual simples
+      const btn = document.querySelectorAll('.add-btn')[produtos.indexOf(item) === index ? index : -1]; // Simplificação
+      // Reinicia a quantidade temporária do card
+      item.qtdTemp = 1;
+      document.getElementById(`qtd-temp-${index}`).innerText = 1;
+      
+      atualizarCarrinhoUI();
+      
+      // Abre o carrinho automaticamente na primeira adição
+      if (carrinho.length === 1) toggleCart(true);
     }
 
-    function atualizarCarrinho() {
+    function atualizarCarrinhoUI() {
       const lista = document.getElementById("cart-items");
-      const total = document.getElementById("cart-total");
+      const totalEl = document.getElementById("cart-total");
+      const countEl = document.getElementById("cart-count");
+      const btnEnviar = document.getElementById("btn-enviar");
+      const msgMinimo = document.getElementById("min-order-msg");
+
       lista.innerHTML = "";
       let totalValor = 0;
-      carrinho.forEach((item, i) => {
-        totalValor += item.preco * item.quantidade;
-        lista.innerHTML += `
-          <li>
-            ${item.nome} ${item.variacao ? `(${item.variacao})` : ""} - R$ ${item.preco} x ${item.quantidade}
-            <span class="cart-item-controls">
-              <button onclick="alterarQuantidade(${i}, 1)">+</button>
-              <button onclick="alterarQuantidade(${i}, -1)">−</button>
-            </span>
-          </li>
-        `;
-      });
-      total.textContent = `Total: R$ ${totalValor.toFixed(2)}`;
-      const cartCount = document.getElementById("cart-count");
-      const totalItens = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
-      cartCount.textContent = totalItens;
-      cartCount.classList.add("animate");
-      setTimeout(() => cartCount.classList.remove("animate"), 300);
-      if (totalValor >= 500) {
-        const aviso = document.getElementById("pedido-ok");
-        aviso.style.display = "block";
+      let totalItens = 0;
+
+      if (carrinho.length === 0) {
+        lista.innerHTML = '<p style="text-align:center; color:#888;">Carrinho vazio</p>';
+      } else {
+        carrinho.forEach((item, i) => {
+          totalValor += item.preco * item.quantidade;
+          totalItens += item.quantidade;
+          
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <div class="item-info">
+              <strong>${item.nome}</strong> <br>
+              <small>${item.variacao || ''}</small>
+            </div>
+            <div style="text-align:right">
+              R$ ${(item.preco * item.quantidade).toFixed(2)}<br>
+              <div class="quantity-controls" style="margin:0; justify-content:flex-end">
+                <button onclick="alterarQtdCarrinho(${i}, -1)" style="width:24px;height:24px;font-size:14px">−</button>
+                <span style="font-size:14px">${item.quantidade}</span>
+                <button onclick="alterarQtdCarrinho(${i}, 1)" style="width:24px;height:24px;font-size:14px">+</button>
+              </div>
+            </div>
+          `;
+          lista.appendChild(li);
+        });
+      }
+
+      // Atualiza Totais
+      totalEl.innerText = `R$ ${totalValor.toFixed(2)}`;
+      countEl.innerText = totalItens;
+      countEl.style.display = totalItens > 0 ? "flex" : "none";
+
+      // Verifica Pedido Mínimo
+      const falta = PEDIDO_MINIMO - totalValor;
+      if (totalValor >= PEDIDO_MINIMO) {
+        btnEnviar.disabled = false;
+        btnEnviar.style.backgroundColor = "var(--whatsapp-color)";
+        btnEnviar.innerText = "Enviar Pedido via WhatsApp";
+        msgMinimo.style.display = "none";
+        msgMinimo.classList.remove("min-order-warning");
         
-      
-      setTimeout(() => aviso.style.display = "none", 4000);
-      if (!confeteEstourado) {
-        criarConfeteNoBotao();
-        confeteEstourado = true;
+        if (!confeteEstourado) soltarConfete();
+      } else {
+        btnEnviar.disabled = true;
+        btnEnviar.style.backgroundColor = "#ccc";
+        btnEnviar.innerText = "Aguardando mínimo...";
+        msgMinimo.style.display = "block";
+        msgMinimo.classList.add("min-order-warning");
+        msgMinimo.innerText = `Faltam R$ ${falta.toFixed(2)} para o pedido mínimo.`;
       }
-    
-      for (let i = 0; i < 20; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.backgroundColor = ['#ffeb3b','#4caf50','#03a9f4','#ff5722'][Math.floor(Math.random()*4)];
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 1000);
-      }
-    
-      }
-      cartCount.style.display = totalItens > 0 ? "flex" : "none";
     }
 
-    function alterarQuantidade(index, delta) {
+    function alterarQtdCarrinho(index, delta) {
       carrinho[index].quantidade += delta;
       if (carrinho[index].quantidade <= 0) {
         carrinho.splice(index, 1);
       }
-      atualizarCarrinho();
+      atualizarCarrinhoUI();
     }
 
-    function enviarPedido() {
-      if (carrinho.length === 0) return alert("Carrinho vazio!");
-      let totalPedido = carrinho.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
-      if (totalPedido < 500) {
-        alert("O pedido mínimo é de R$ 500. Adicione mais itens para continuar.");
-        return;
-      }
-      let mensagem = "Olá! Quero fazer o seguinte pedido:%0A";
-      let total = 0;
-      carrinho.forEach(item => {
-        mensagem += `• ${item.nome} ${item.variacao ? `(${item.variacao})` : ""} - R$ ${item.preco} x ${item.quantidade}%0A`;
-        total += item.preco * item.quantidade;
-      });
-      mensagem += `%0ATotal: R$ ${total.toFixed(2)}%0AAguardando confirmação do pedido.`;
-      window.open(`https://wa.me/5551992001418?text=${mensagem}`, "_blank");
-    }
+    // --- UI UX ---
+    function toggleCart(forceOpen = null) {
+      const container = document.getElementById('cart-container');
+      const overlay = document.getElementById('cart-overlay');
+      const trigger = document.getElementById('cart-trigger');
+      
+      const isOpen = container.classList.contains('open');
+      const shouldOpen = forceOpen !== null ? forceOpen : !isOpen;
 
-    // Initialize event listeners and load products only after the DOM has finished loading.
-    document.addEventListener('DOMContentLoaded', () => {
-      // Bind search input to filter products on the fly
-      const searchInput = document.getElementById('search');
-      if (searchInput) {
-        searchInput.addEventListener('input', function () {
-          const termo = this.value.toLowerCase();
-          const filtrado = produtos.filter(p => p.Nome.toLowerCase().includes(termo));
-          renderProducts(filtrado);
-        });
-      }
-      // Load products from the spreadsheet once the page elements exist
-      loadProducts();
-    });
-  
-    function toggleCarrinho() {
-      const cart = document.getElementById("cart");
-      const toggleBtn = document.getElementById("cart-toggle-button");
-      const isVisible = cart.style.display === "block";
-      cart.style.display = isVisible ? "none" : "block";
-      toggleBtn.style.display = isVisible ? "flex" : "none";
-    }
-    
-    function toggleCarrinho() {
-      const cart = document.getElementById("cart");
-      const toggleBtn = document.getElementById("cart-toggle-button");
-      if (cart.style.display === "none") {
-        cart.style.display = "block";
-        toggleBtn.style.display = "none";
+      if (shouldOpen) {
+        container.classList.add('open');
+        overlay.style.display = 'block';
+        trigger.style.display = 'none'; // Esconde o botão flutuante
       } else {
-        cart.style.display = "none";
-        toggleBtn.style.display = "flex";
+        container.classList.remove('open');
+        overlay.style.display = 'none';
+        trigger.style.display = 'flex'; // Mostra o botão flutuante
       }
     }
 
-    document.addEventListener("click", function (event) {
-      const cart = document.getElementById("cart");
-      const toggleBtn = document.getElementById("cart-toggle-button");
-      if (!cart.contains(event.target) && event.target !== toggleBtn && cart.style.display === "block") {
-        cart.style.display = "none";
-        toggleBtn.style.display = "flex";
-      }
-    });
-
+    // --- Finalização ---
     function enviarPedido() {
-      if (carrinho.length === 0) return alert("Carrinho vazio!");
-      let totalPedido = carrinho.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
-      if (totalPedido < 500) {
-        alert("O pedido mínimo é de R$ 500. Adicione mais itens para continuar.");
-        return;
-      }
+      if (carrinho.length === 0) return;
 
-      let mensagem = "Olá! Quero fazer o seguinte pedido:%0A";
-      let total = 0;
+      // Pega o tipo de entrega selecionado
+      const tipoEntrega = document.querySelector('input[name="entrega"]:checked').value;
+      const textoEntrega = tipoEntrega === 'envio' ? "*SOLICITAÇÃO DE ENVIO* (Calcular frete)" : "*RETIRADA NA FÁBRICA*";
+
+      let mensagem = `Olá! Gostaria de fazer um pedido:%0A%0A`;
+      
       carrinho.forEach(item => {
-        mensagem += `${item.quantidade} ${item.nome} ${item.variacao ? `(${item.variacao})` : ""} - R$ ${(item.preco * item.quantidade).toFixed(2)}%0A`;
-        total += item.preco * item.quantidade;
+        mensagem += `▪ ${item.quantidade}x ${item.nome} ${item.variacao ? `(${item.variacao})` : ""} - R$ ${(item.preco * item.quantidade).toFixed(2)}%0A`;
       });
-      mensagem += `%0ATotal: R$ ${total.toFixed(2)}%0AAguardando confirmação do pedido.`;
-      window.open(`https://wa.me/5551992001418?text=${mensagem}`, "_blank");
-    }
-    
-    let confeteEstourado = false;
 
-    function criarConfeteNoBotao() {
-      const botao = document.getElementById("cart-toggle-button");
-      const rect = botao.getBoundingClientRect();
-      for (let i = 0; i < 30; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.left = (rect.left + rect.width / 2) + 'px';
-        confetti.style.top = (rect.top + rect.height / 2) + 'px';
-        confetti.style.backgroundColor = ['#ffeb3b','#4caf50','#03a9f4','#ff5722'][Math.floor(Math.random()*4)];
-        confetti.style.position = 'fixed';
-        confetti.style.animation = `fall 1s linear forwards`;
-        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 1000);
+      const total = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
+      
+      mensagem += `%0A*Total Geral: R$ ${total.toFixed(2)}*`;
+      mensagem += `%0A%0A📦 Método: ${textoEntrega}`;
+      mensagem += `%0A%0AAguardando confirmação!`;
+
+      window.open(`https://wa.me/${WHATSAPP_NUM}?text=${mensagem}`, "_blank");
+    }
+
+    // --- Confete (Efeito Visual) ---
+    function soltarConfete() {
+      confeteEstourado = true;
+      for (let i = 0; i < 50; i++) {
+        const confete = document.createElement('div');
+        confete.className = 'confetti';
+        confete.style.left = Math.random() * 100 + 'vw';
+        confete.style.top = '-10px';
+        confete.style.backgroundColor = ['#ff0', '#f00', '#0f0', '#00f'][Math.floor(Math.random() * 4)];
+        confete.style.animationDuration = (Math.random() * 2 + 1) + 's';
+        document.body.appendChild(confete);
+        setTimeout(() => confete.remove(), 3000);
       }
     }
-    
-document.querySelector("#products").addEventListener("click", function(e) {
-  if (e.target.classList.contains("add")) {
-    const card = e.target.closest(".product-card");
-    const index = parseInt(card.getAttribute("data-index"));
-    adicionarAoCarrinho(index);
-  }
-});
-
 </script>
-
-
-
-
-<!-- Scripts de melhorias -->
-<script>
-// Adiciona contador no botão do carrinho
-let totalItens = 0;
-const carrinhoBtn = document.createElement('div');
-carrinhoBtn.id = 'cart-toggle';
-carrinhoBtn.style.position = 'fixed';
-carrinhoBtn.style.bottom = '80px';
-carrinhoBtn.style.right = '20px';
-carrinhoBtn.style.background = '#fff';
-carrinhoBtn.style.borderRadius = '50%';
-carrinhoBtn.style.width = '50px';
-carrinhoBtn.style.height = '50px';
-carrinhoBtn.style.display = 'flex';
-carrinhoBtn.style.alignItems = 'center';
-carrinhoBtn.style.justifyContent = 'center';
-carrinhoBtn.style.boxShadow = '0 0 10px rgba(0,0,0,0.2)';
-carrinhoBtn.style.cursor = 'pointer';
-carrinhoBtn.innerHTML = '🛒<span id="cart-count" style="position:absolute;top:-5px;right:-5px;background:red;color:white;border-radius:50%;padding:2px 6px;font-size:12px;">0</span>';
-document.body.appendChild(carrinhoBtn);
-
-let cartOpen = false;
-carrinhoBtn.onclick = () => {
-  const carrinho = document.querySelector('.cart');
-  if (!cartOpen) {
-    carrinho.style.display = 'block';
-    carrinhoBtn.style.display = 'none';
-    cartOpen = true;
-  }
-};
-
-document.addEventListener('click', function(e) {
-  const carrinho = document.querySelector('.cart');
-  if (cartOpen && !carrinho.contains(e.target) && e.target.id !== 'cart-toggle') {
-    carrinho.style.display = 'none';
-    carrinhoBtn.style.display = 'flex';
-    cartOpen = false;
-  }
-});
-
-// Confete simples na primeira vez que ultrapassa R$500
-let confeteEstourado = false;
-function estourarConfete() {
-  if (confeteEstourado) return;
-  confeteEstourado = true;
-  for (let i = 0; i < 100; i++) {
-    const confete = document.createElement('div');
-    confete.style.position = 'fixed';
-    confete.style.width = '5px';
-    confete.style.height = '10px';
-    confete.style.background = '#' + Math.floor(Math.random()*16777215).toString(16);
-    confete.style.left = '50%';
-    confete.style.bottom = '50px';
-    confete.style.opacity = 1;
-    confete.style.transition = 'all 2s ease-out';
-    document.body.appendChild(confete);
-    setTimeout(() => {
-      confete.style.transform = `translate(${(Math.random()-0.5)*300}px, -${Math.random()*500}px) rotate(${Math.random()*360}deg)`;
-      confete.style.opacity = 0;
-    }, 10);
-    setTimeout(() => confete.remove(), 2100);
-  }
-}
-
-document.querySelector("#products").addEventListener("click", function(e) {
-  if (e.target.classList.contains("add")) {
-    const card = e.target.closest(".product-card");
-    const index = parseInt(card.getAttribute("data-index"));
-    adicionarAoCarrinho(index);
-  }
-});
-
-</script>
-
-
-<script>
-// Atualiza total e verifica confete
-function verificarConfeteETotal() {
-  const total = calcularTotalPedido();
-  const aviso = document.getElementById('aviso-minimo');
-  if (total >= 500 && !window.confeteEstourado) {
-    estourarConfete();
-    window.confeteEstourado = true;
-  }
-  if (total < 500) {
-    aviso.style.display = 'block';
-    return false;
-  } else {
-    aviso.style.display = 'none';
-    return true;
-  }
-}
-
-// Ao clicar em "Enviar pedido", pergunta antes de prosseguir
-document.addEventListener('DOMContentLoaded', () => {
-  const botaoEnviar = document.querySelector('#enviarPedidoBtn');
-  if (botaoEnviar) {
-    botaoEnviar.addEventListener('click', () => {
-      if (!verificarConfeteETotal()) {
-        alert('Pedido mínimo de R$ 500 necessário.');
-        return;
-      }
-      const opcao = confirm("Precisa que envie ou retira?
-OK = Preciso que envie
-Cancelar = Retiro na fábrica");
-      const tipoEntrega = opcao ? "Preciso que envie (calcular frete)" : "Retiro na fábrica";
-      const mensagem = gerarMensagemPedido(tipoEntrega);
-      const url = `https://wa.me/5551992001418?text=${encodeURIComponent(mensagem)}`;
-      window.open(url, "_blank");
-    });
-  }
-});
-
-function gerarMensagemPedido(tipoEntrega) {
-  const itens = window.itensSelecionados || [];
-  let mensagem = "Olá! Quero fazer o seguinte pedido:\n";
-  let total = 0;
-  for (const item of itens) {
-    const subtotal = parseFloat(item.preco) * item.quantidade;
-    total += subtotal;
-    mensagem += `${item.quantidade} ${item.nome} (${item.variacao}) - R$ ${parseFloat(item.preco).toFixed(2)}\n`;
-  }
-  mensagem += `\nTotal: R$ ${total.toFixed(2)}\n${tipoEntrega}\nAguardando confirmação do pedido.`;
-  return mensagem;
-}
-
-document.querySelector("#products").addEventListener("click", function(e) {
-  if (e.target.classList.contains("add")) {
-    const card = e.target.closest(".product-card");
-    const index = parseInt(card.getAttribute("data-index"));
-    adicionarAoCarrinho(index);
-  }
-});
-
-</script>
-
 </body>
 </html>
